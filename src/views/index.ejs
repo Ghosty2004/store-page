@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>First Project</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/assets/css/index.css"/>
+        <script src="/assets/js/index.js" defer></script>
+        <script src="https://kit.fontawesome.com/7453753ba4.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="/"><img src="/assets/images/logo.png" alt="logo"/></a>
+            </div>
+            <div class="search-box">
+                <form action="/product/search" type="GET">
+                    <input type="text" name="query" value="<%=options.query%>" placeholder="Search something" autocomplete="off"/>
+                </form>
+            </div>
+            <div class="user-options">
+                <div class="item">
+                    <a href="/user/me"><i class="fa-solid fa-user"></i> Your account <i class="fa-solid fa-caret-down"></i></a>
+                    <div class="drop-down">
+                        <% if(!user) { %>
+                            <a href="/user/login"><div class="item line"><i class="fa-solid fa-right-to-bracket"></i> Login</div></a>
+                            <a href="/user/register"><div class="item"><i class="fa-solid fa-right-to-bracket"></i> Register</div></a>
+                        <% } else { 
+                            %>
+                            <a href="/user/me"><div class="item line"><i class="fa-solid fa-user"></i> <%=user.userName%></div></a>
+                            <a href="/user/signout"><div class="item"><i class="fa-solid fa-door-open"></i> Logout</div></a>
+                            <%
+                        } %>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="fa-solid fa-heart"></i> Favorites
+                </div>
+                <div class="item">
+                    <i class="fa-solid fa-cart-shopping"></i> Your cart <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <%- include(`./pages/${page}`) %>
+        </div>
+        <footer>
+            <div>Shop Page - First Project</div>
+            <div>Copyright © 2022 by <span>Ghosty2004</span></div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<div class="user-me">
+    </p>Welcome, <span><%= user.userName %></span>!</p>
+    <p>Below you will find your account informations.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Member Since</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= user.userName %></td>
+                <td><%= user.email %></td>
+                <td><%= new Date(user.joinDate).toDateString() %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500&display=swap');
+
+body {
+    background-color: rgb(77, 77, 77);
+    font-family: "Roboto", sans-serif;
+    font-size: 1vw;
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+header {
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    padding: 0 10vw 0 10vw;
+}
+
+header>div {
+    margin: 0 1vw 0 1vw;
+}
+
+header .logo img {
+    width: 3vw;
+}
+
+header .search-box input {
+    border-radius: 15px;
+    width: 30vw;
+    height: 1vw;
+    padding: 0.5vw;
+    font-size: 1vw;
+}
+
+header>.user-options {
+    display: flex;
+    font-size: 1vw;
+}
+
+header .user-options .item {
+    margin: 0 1vw 0 1vw;
+}
+
+header .user-options .item:hover {
+    cursor: pointer;
+}
+
+header .user-options .item .drop-down {
+    visibility: hidden;
+    position: absolute;
+    background-color: rgb(37, 37, 37);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 0.5vw;
+    font-size: 1vw;
+    width: auto;
+}
+
+header .user-options .item:hover .drop-down {
+    visibility: visible;
+}
+
+header .user-options .item .drop-down .item {
+    padding: 0.5vw 0 0.5vw 0;
+}
+
+header .user-options .item .drop-down .item.line {
+    border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.container {
+    background-color: rgb(37, 37, 37);
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    padding: 1vw;
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth-page>.auth-box {
+    background-color: rgb(47, 48, 60);
+    border-radius: 10px;
+    padding: 2vw;
+    width: 30vw;
+    border: solid 0.2vw black;
+}
+
+.auth-page>.auth-box>.auth-header {
+    display: inline-flexbox;
+    text-align: center;
+    margin-bottom: 2vw;
+}
+
+.auth-page>.auth-box>.auth-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-page>.auth-box>.auth-body input:not([type="submit"]) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1vw;
+    border-radius: 5px;
+    width: 20vw;
+    height: 1.5vw;
+}
+
+.user-me span {
+    color: red;
+}
+
+.search-page .items {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.search-page .item {
+    width: 17vw;
+    height: auto;
+    margin: 1vw;
+    background-color: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: solid 0.15vw rgb(255, 255, 255);
+    border-radius: 1vw;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.search-page .item img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 1vw;
+    width: 10vw;
+    height: 10vw;
+}
+
+.search-page .item .name,
+.search-page .item>.price,
+.search-page .item>.stock {
+    position: relative;
+    left: 1vw;
+}
+
+.search-page .item>.actions {
+    position: relative;
+    bottom: 0;
+    margin: 1vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-page .item>.actions::before {
+    background-color: red;
+}
+
+.search-page .remove-from-cart,
+.search-page .add-to-cart:hover {
+    color: rgb(255, 221, 0);
+}
+
+.search-page .remove-from-favorite,
+.search-page .add-to-favorite:hover {
+    color: red;
+}
+
+.info-box {
+    background-color: rgb(255, 174, 0);
+    border-radius: 10px;
+    padding: 0.5vw;
+    height: 1.5vw;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+table th {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 0.5vw;
+}
+
+table td {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 0.5vw;
+}
+
+input {
+    background-color: black;
+    color: white;
+    padding: 0.2vw;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8vw;
+    border: 0.15vw solid #ccc;
+    outline: none;
+}
+
+footer {
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    padding: 1vw;
+    justify-content: space-between;
+}
+
+footer span {
+    color: red;
+}
+
+::-webkit-scrollbar {
+    width: 0.3vw;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
