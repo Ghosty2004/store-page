@@ -1,9 +1,5 @@
 import { sessionsCollection, usersCollection } from "../utils/index.js";
 
-export function timeout(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 export async function renderPage(request, response, page, options = {}) {
     try {
         response.render("index", { page, options, user: await getUserBySessionId(request.cookies.sessionId) });
