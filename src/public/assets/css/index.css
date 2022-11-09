@@ -29,6 +29,10 @@ header .logo img {
     width: 3vw;
 }
 
+header .category-select select {
+    border-radius: 15px;
+}
+
 header .search-box input {
     border-radius: 15px;
     width: 30vw;
@@ -199,7 +203,7 @@ table td {
     padding: 0.5vw;
 }
 
-input {
+input, select {
     background-color: black;
     color: white;
     padding: 0.2vw;
