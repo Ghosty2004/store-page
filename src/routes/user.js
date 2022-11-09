@@ -7,17 +7,17 @@ const router = Router();
 
 router.get("/me", async (request, response) => {
     if(!await getUserBySessionId(request.cookies.sessionId)) return response.redirect("/");
-    renderPage(request, response, "user/me")
+    renderPage(request, response, "user/me");
 });
 
 router.get("/login", async (request, response) => {
     if(await getUserBySessionId(request.cookies.sessionId)) return response.redirect("/");
-    renderPage(request, response, "user/login")
+    renderPage(request, response, "user/login");
 });
 
 router.get("/register", async (request, response) => {
     if(await getUserBySessionId(request.cookies.sessionId)) return response.redirect("/");
-    renderPage(request, response, "user/register")
+    renderPage(request, response, "user/register");
 });
 
 router.get("/signout", async (request, response) => {
