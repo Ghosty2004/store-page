@@ -15,12 +15,8 @@
                     <div class="price"><i class="fa-solid fa-money-bill"></i> <span><%=item.price%> Lei</span></div>
                     <div class="stock"><i class="fa-solid fa-arrow-up-wide-short"></i> <span><%=item.stock%> in stock</span></div>
                     <div class="actions">
-                        <%
-                        const existsInCart = user.itemsInCart.some(s => s == item._id);
-                        const existsInFavorites = user.itemsInFavorites.some(s => s == item._id);
-                        %>
-                        <a href="#" onclick="<%=existsInCart ? `removeFromCart('${item._id}')` : `addToCart('${item._id}')`%>"><div class="<%=existsInCart ? "remove-from-cart" : "add-to-cart"%>"><i class="fa-solid fa-cart-plus"></i></div></a>
-                        <a href="#" onclick="<%=existsInFavorites ? `removeFromFavorite('${item._id}')` : `addToFavorite('${item._id}')`%>"><div class="<%=existsInFavorites? "remove-from-favorite" : "add-to-favorite"%>"><i class="fa-solid fa-heart"></i></div></a>
+                        <a href="#" onclick="productToggleCart('<%=item._id%>', this)"><div class="<%=user ? (user.itemsInCart.includes(item._id) ? "remove-from-cart" : "add-to-cart") : "add-to-cart"%>"><i class="fa-solid fa-cart-plus"></i></div></a>
+                        <a href="#" onclick="productToggleFavorite('<%=item._id%>', this)"><div class="<%=user ? (user.itemsInFavorites.includes(item._id) ? "remote-from-favorite" : "add-to-favorite") : "add-to-favorite"%>"><i class="fa-solid fa-heart"></i></div></a>
                     </div>
                 </div>
                 <%
