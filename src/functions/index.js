@@ -1,8 +1,10 @@
-import { sessionsCollection, usersCollection } from "../utils/index.js";
+import { sessionsCollection, usersCollection, categories } from "../utils/index.js";
 
 export async function renderPage(request, response, page, options = {}) {
     try {
-        response.render("index", { page, options, user: await getUserBySessionId(request.cookies.sessionId) });
+        const user = await getUserBySessionId(request.cookies.sessionId)
+        response.render("index", { page, options, user, categories });
+        if(!user) return;
         await sessionsCollection.updateOne({ sessionId: request.cookies.sessionId }, { $set: { lastSeen: Date.now() } });
     } catch(e) {
         console.log(e.stack);
@@ -28,4 +30,8 @@ export async function getUserBySessionId(sessionId) {
             resolve(null);
         }
     });
+}
+
+export function isValidObjectId(id) {
+    return /^[0-9a-fA-F]{24}$/.test(id);
 }
