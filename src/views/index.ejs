@@ -34,14 +34,22 @@
                 <div class="item">
                     <a href="/user/me"><i class="fa-solid fa-user"></i> Your account <i class="fa-solid fa-caret-down"></i></a>
                     <div class="drop-down">
-                        <% if(!user) { %>
+                        <% 
+                        if(!user) { 
+                            %>
                             <a href="/user/login"><div class="item line"><i class="fa-solid fa-right-to-bracket"></i> Login</div></a>
                             <a href="/user/register"><div class="item"><i class="fa-solid fa-right-to-bracket"></i> Register</div></a>
-                        <% } else { 
+                            <% 
+                        } else { 
                             %>
                             <a href="/user/me"><div class="item line"><i class="fa-solid fa-user"></i> <%=user.userName%></div></a>
-                            <a href="/user/signout"><div class="item"><i class="fa-solid fa-door-open"></i> Logout</div></a>
+                            <a href="/user/signout"><div class="item <%=user.isAdmin ? "line" : ""%>"><i class="fa-solid fa-door-open"></i> Logout</div></a>
                             <%
+                            if(user.isAdmin) {
+                                %>
+                                <a href="/admincp"><div class="item"><i class="fa-solid fa-screwdriver-wrench"></i> AdminCP</div></a>
+                                <%
+                            }
                         } %>
                     </div>
                 </div>
