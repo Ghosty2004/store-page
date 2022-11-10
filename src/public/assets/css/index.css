@@ -180,6 +180,35 @@ header .user-options .item .drop-down .item.line {
     color: red;
 }
 
+/* AdminCP page */
+.admincp-page>.items {
+    display: flex;
+}
+
+.admincp-page>.items>.item {
+    position: relative;
+    left: 50%;
+    transform: translateX(-100%);
+    width: 10vw;
+    height: 10vw;
+    margin: 1vw;
+    background-color: rgba(143, 187, 197, 0.5);
+    border-radius: 1vw;
+    text-align: center;
+}
+
+.admincp-page>.items>.item:hover {
+    cursor: pointer;
+    background-color: rgba(143, 187, 197, 1);
+}
+
+.admincp-page>.items>.item>.content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3vw;
+}
+
 .info-box {
     background-color: rgb(255, 174, 0);
     border-radius: 10px;
