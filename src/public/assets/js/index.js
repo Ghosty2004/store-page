@@ -74,7 +74,7 @@ const showItemAdd_AdminCP = async (type, values = {}) => {
         case 1: {
             Swal.fire({
                 title,
-                input: 'text',
+                input: 'textarea',
                 inputLabel: 'Item description',
                 confirmButtonText: 'Next',
                 footer,
@@ -137,14 +137,22 @@ const showItemAdd_AdminCP = async (type, values = {}) => {
             Swal.fire({
                 title,
                 input: 'file',
+                inputAttributes: {
+                    'accept': 'image/png, image/jpeg'
+                },
                 inputLabel: 'Item image',
                 confirmButtonText: 'Next',
                 footer,
                 inputValidator: (result) => !result && 'Please input the item image!'
             }).then((result) => {
                 if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
-                values = { ...values, itemImage: result.value };
-                showItemAdd_AdminCP(6, values);
+                const reader = new FileReader();
+                reader.readAsDataURL(result.value);
+                reader.onload = () => {
+                    values = { ...values, itemImages: [...typeof(values.itemImages) !== "undefined" ? value.itemImages : [], reader.result] };
+                    showItemAdd_AdminCP(6, values);
+                };
+                reader.onerror = () => Swal.fire({ icon: "error", title: "Failed to read the image!" });
             });
             break;
         }
@@ -152,7 +160,7 @@ const showItemAdd_AdminCP = async (type, values = {}) => {
             const categoryName = await getValidItemCategories();
             Swal.fire({
                 title,
-                html: `Are you sure that you want to add this item ?<br/><br/>Name: ${values.itemName}<br/>Description: ${values.itemDescription}<br/>Category: ${categoryName[values.itemCategory]}<br/>Price: ${values.itemPrice}<br/>Stock: ${values.itemStock}`,
+                html: `Are you sure that you want to add this item ?<br/><br/>Name: ${values.itemName}<br/>Description: ${values.itemDescription}<br/>Category: ${categoryName[values.itemCategory]}<br/>Price: ${values.itemPrice}<br/>Stock: ${values.itemStock}<br/>Images: ${values.itemImages.length} <div style="display: flex;">${values.itemImages.map(image => `<img src="${image}" width="30%" />`)}</div>`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -178,6 +186,33 @@ const showItemAdd_AdminCP = async (type, values = {}) => {
             });
         }
     }
+};
+
+const showItemRemove_AdminCP = () => {
+    Swal.fire({
+        title: "Remove item",
+        input: 'text',
+        inputLabel: 'Item ID',
+        confirmButtonText: 'Remove',
+        showCancelButton: true,
+        inputValidator: (result) => !result && 'Please input the item ID!'
+    }).then((result) => {
+        if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+        fetch("/admincp/remove-item", {
+            method: "DELETE",
+            body: JSON.stringify({ itemId: result.value }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            response.json().then(json => {
+                Toast.fire({
+                    icon: !json.error ? "success" : "error",
+                    title: json.message
+                });
+            }).catch(console.error);
+        }).catch(console.error);
+    });
 };
 
 // => Events listeners
