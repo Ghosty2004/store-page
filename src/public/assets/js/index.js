@@ -33,7 +33,6 @@ const productToggleCart = (itemId, element) => {
         }).catch(console.error);
     }).catch(console.error);
 };
-
 const productToggleFavorite = (itemId, element) => {
     const div = element.querySelector("div");
     if(!div) return;
@@ -49,6 +48,136 @@ const productToggleFavorite = (itemId, element) => {
             div.className = json.type === "add" ? "remove-from-favorite" : "add-to-favorite";
         }).catch(console.error)
     }).catch(console.error);
+};
+const getValidItemCategories = () => new Promise(resolve => fetch("/admincp/fetch-categories").then(response => response.json().then(json => resolve(json)).catch(console.error)).catch(console.error));
+
+// => AdminCP functions
+const showItemAdd_AdminCP = async (type, values = {}) => {
+    const title = "Add new item";
+    const footer = `Step: ${type + 1} / 7`;
+    switch(type) {
+        case 0: {
+            Swal.fire({
+                title,
+                input: 'text',
+                inputLabel: 'Item name',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please input the item name!'
+            }).then((result) => { 
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemName: result.value }; 
+                showItemAdd_AdminCP(1, values); 
+            });
+            break;
+        }
+        case 1: {
+            Swal.fire({
+                title,
+                input: 'text',
+                inputLabel: 'Item description',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please input the item description!'
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemDescription: result.value };
+                showItemAdd_AdminCP(2, values);
+            });
+            break;
+        }
+        case 2: {
+            const inputOptions = await getValidItemCategories();
+            Swal.fire({
+                title,
+                input: 'select',
+                inputOptions,
+                inputLabel: 'Item category',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please select the item category!'
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemCategory: result.value };
+                showItemAdd_AdminCP(3, values);
+            });
+            break;
+        }
+        case 3: {
+            Swal.fire({
+                title,
+                input: 'number',
+                inputLabel: 'Item price',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please input the item price!'
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemPrice: result.value };
+                showItemAdd_AdminCP(4, values);
+            });
+            break;
+        }
+        case 4: {
+            Swal.fire({
+                title,
+                input: 'number',
+                inputLabel: 'Item stock',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please input the item stock!'
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemStock: result.value };
+                showItemAdd_AdminCP(5, values);
+            });
+            break;
+        }
+        case 5: {
+            Swal.fire({
+                title,
+                input: 'file',
+                inputLabel: 'Item image',
+                confirmButtonText: 'Next',
+                footer,
+                inputValidator: (result) => !result && 'Please input the item image!'
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                values = { ...values, itemImage: result.value };
+                showItemAdd_AdminCP(6, values);
+            });
+            break;
+        }
+        case 6: {
+            const categoryName = await getValidItemCategories();
+            Swal.fire({
+                title,
+                html: `Are you sure that you want to add this item ?<br/><br/>Name: ${values.itemName}<br/>Description: ${values.itemDescription}<br/>Category: ${categoryName[values.itemCategory]}<br/>Price: ${values.itemPrice}<br/>Stock: ${values.itemStock}`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, add it!',
+                footer
+            }).then((result) => {
+                if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
+                fetch("/admincp/add-item", {
+                    method: "PUT",
+                    body: JSON.stringify(values),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(response => {
+                    response.json().then(json => {
+                        Toast.fire({
+                            icon: !json.error ? "success" : "error",
+                            title: json.message
+                        });
+                    }).catch(console.error);
+                }).catch(console.error);
+            });
+        }
+    }
 };
 
 // => Events listeners
