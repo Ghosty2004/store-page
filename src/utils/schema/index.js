@@ -7,7 +7,10 @@ export const userSchema = new Schema({
     joinDate: Schema.Types.Number,
     itemsInCart: [Schema.Types.String],
     itemsInFavorites: [Schema.Types.String],
-    isAdmin: Schema.Types.Boolean,
+    isAdmin: {
+        type: Schema.Types.Boolean,
+        default: false
+    }
 });
 
 export const sessionSchema = new Schema({
