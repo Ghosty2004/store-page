@@ -16,36 +16,42 @@ const categorySelect = document.querySelector(".category-select>select[name=\"ca
 const searchBox = document.querySelector(".search-box>input[type=\"text\"]");
 
 // => Backend calls
-const productToggleCart = (itemId, element) => {
-    const div = element.querySelector("div");
-    if(!div) return;
-    console.log(div.classList);
+const productToggleCart = (itemId, element = null) => {
+    const div = element ? element.querySelector("div") : null;
     fetch(`/product/action/toggleCart/${itemId}`, { 
         method: "POST"
     }).then((response) => {
         response.json().then(json => {
-            Toast.fire({
-                icon: !json.error ? "success" : "error",
-                title: json.message
-            });
-            if(json.error) return;
-            div.className = json.type === "add" ? "remove-from-cart" : "add-to-cart";
+            if(div) {
+                Toast.fire({
+                    icon: !json.error ? "success" : "error",
+                    title: json.message
+                });
+                if(json.error) return;
+                div.className = json.type === "add" ? "remove-from-cart" : "add-to-cart";
+            } else {
+                window.location.reload();
+            }
         }).catch(console.error);
     }).catch(console.error);
 };
-const productToggleFavorite = (itemId, element) => {
-    const div = element.querySelector("div");
-    if(!div) return;
+
+const productToggleFavorite = (itemId, element = null) => {
+    const div = element ? element.querySelector("div") : null;
     fetch(`/product/action/toggleFavorite/${itemId}`, { 
         method: "POST" 
     }).then((response) => {
         response.json().then(json => {
-            Toast.fire({
-                icon: !json.error ? "success" : "error",
-                title: json.message
-            });
-            if(json.error) return;
-            div.className = json.type === "add" ? "remove-from-favorite" : "add-to-favorite";
+            if(div) {
+                Toast.fire({
+                    icon: !json.error ? "success" : "error",
+                    title: json.message
+                });
+                if(json.error) return;
+                div.className = json.type === "add" ? "remove-from-favorite" : "add-to-favorite";
+            } else {
+                window.location.reload();
+            }
         }).catch(console.error)
     }).catch(console.error);
 };
@@ -212,6 +218,13 @@ const showItemRemove_AdminCP = () => {
                 });
             }).catch(console.error);
         }).catch(console.error);
+    });
+};
+
+const showItemEdit_AdminCP = () => {
+    Swal.fire({
+        title: 'To be continued...',
+        icon: 'info'
     });
 };
 

@@ -1,6 +1,6 @@
 import { response, Router } from "express";
 import { isValidObjectId } from "mongoose";
-import { getUserBySessionId, renderPage } from "../functions/index.js";
+import { getUserBySessionId, getUserNameByUserId, renderPage } from "../functions/index.js";
 import { itemsCollection, usersCollection } from "../utils/index.js";
 
 const router = Router();
@@ -24,7 +24,7 @@ router.get("/search", async (request, params) => {
 router.get("/view/:productId", async (request, response) => {
     try {
         if(!isValidObjectId(request.params.productId)) return response.redirect("/product/search");
-        const result = await itemsCollection.findOne({ _id: request.params.productId.toString() });
+        let result = await itemsCollection.findOne({ _id: request.params.productId.toString() });
         if(!result) return response.redirect("/product/search");
         renderPage(request, response, "/product/view", { result });
     } catch(e) {

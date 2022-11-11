@@ -1,4 +1,4 @@
-<div class="search-page">
+<div class="product-search-page">
     <%
     if(options.result.length) {
         %>
@@ -10,13 +10,13 @@
             options.result.forEach((item) => {
                 %>
                 <div class="item">
-                    <img src="<%=item.images[0]%>"/>
-                    <a href="/product/view/<%=item._id%>"><div class="name"><i class="fa-solid fa-circle-info"></i> <%=item.name%></div></a>
+                    <a href="/product/view/<%=item._id%>"><img src="<%=item.images[0]%>"/></a>
+                    <div class="name"><i class="fa-solid fa-circle-info"></i> <%=item.name%></div>
                     <div class="price"><i class="fa-solid fa-money-bill"></i> <span><%=item.price%> Lei</span></div>
                     <div class="stock"><i class="fa-solid fa-arrow-up-wide-short"></i> <span><%=item.stock%> in stock</span></div>
                     <div class="actions">
                         <a href="#" onclick="productToggleCart('<%=item._id%>', this)"><div class="<%=user ? (user.itemsInCart.includes(item._id) ? "remove-from-cart" : "add-to-cart") : "add-to-cart"%>"><i class="fa-solid fa-cart-plus"></i></div></a>
-                        <a href="#" onclick="productToggleFavorite('<%=item._id%>', this)"><div class="<%=user ? (user.itemsInFavorites.includes(item._id) ? "remote-from-favorite" : "add-to-favorite") : "add-to-favorite"%>"><i class="fa-solid fa-heart"></i></div></a>
+                        <a href="#" onclick="productToggleFavorite('<%=item._id%>', this)"><div class="<%=user ? (user.itemsInFavorites.includes(item._id) ? "remove-from-favorite" : "add-to-favorite") : "add-to-favorite"%>"><i class="fa-solid fa-heart"></i></div></a>
                     </div>
                 </div>
                 <%

@@ -15,7 +15,7 @@ import admincp from "./routes/admincp.js";
 const app = express();
 
 app.use(express.static("src/public"));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set("view engine", "ejs");

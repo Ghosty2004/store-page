@@ -31,7 +31,7 @@
                 <input type="text" name="query" value="<%=options.query%>" placeholder="Search something" autocomplete="off"/>
             </div>
             <div class="user-options">
-                <div class="item">
+                <div class="item user-me">
                     <a href="/user/me"><i class="fa-solid fa-user"></i> Your account <i class="fa-solid fa-caret-down"></i></a>
                     <div class="drop-down">
                         <% 
@@ -53,8 +53,26 @@
                         } %>
                     </div>
                 </div>
-                <div class="item">
-                    <i class="fa-solid fa-heart"></i> Favorites
+                <div class="item favorites">
+                    <i class="fa-solid fa-heart"></i> Favorites <i class="fa-solid fa-caret-down"></i>
+                    <div class="drop-down">
+                        <%
+                        if(user?.itemsInFavorites.length) {
+                            user.itemsInFavorites.forEach((item) => {
+                                const _item = items.find(f => f._id == item);
+                                if(!_item) return;
+                                %>
+                                    <div class="item">
+                                        <a href="#"><img src="<%=_item.images[0]%>"/></a>
+                                        <span><%=_item.name%></span>
+                                    </div>
+                                <%
+                            });
+                        } else {
+                            %>No items<%
+                        }
+                        %>
+                    </div>
                 </div>
                 <div class="item">
                     <i class="fa-solid fa-cart-shopping"></i> Your cart <i class="fa-solid fa-caret-down"></i>

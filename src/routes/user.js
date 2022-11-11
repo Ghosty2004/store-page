@@ -1,4 +1,5 @@
 import { Router } from "express";
+import md5 from "md5";
 
 import { generateRandomSessionId, getUserBySessionId, renderPage } from "../functions/index.js";
 import { sessionsCollection, usersCollection } from "../utils/index.js";
@@ -28,7 +29,7 @@ router.get("/signout", async (request, response) => {
 
 router.post("/login", async (request, response) => {
     try {
-        const result = await usersCollection.findOne({ userName: request.body.username, password: request.body.password });
+        const result = await usersCollection.findOne({ userName: request.body.username, password: md5(request.body.password) });
         if(!result) return response.json({ error: true, message: "Invalid user name or password!" });
         const sessionId = generateRandomSessionId();
         new sessionsCollection({ userId: result._id, sessionId, lastSeen: Date.now() }).save();
@@ -46,7 +47,7 @@ router.post("/register", async (request, response) => {
         if(request.body.password !== request.body.retypePassword) return response.send({ error: true, message: "Passwords does not match!" });
         const user = new usersCollection({
             userName: request.body.username,
-            password: request.body.password,
+            password: md5(request.body.password),
             email: request.body.email,
             joinDate: Date.now()
         });
