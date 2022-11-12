@@ -9,37 +9,37 @@
 <h3>Spoiler:</h3>
 
 <details>
-    <summary>Page: Home</summary>
+    <summary>Page: <b>Home</b></summary>
     <img src="https://i.imgur.com/A6bhrcm.png"/>
 </details>
 
 <details>
-    <summary>Page: Login</summary>
+    <summary>Page: <b>Login</b></summary>
     <img src="https://i.imgur.com/REe6th4.png"/>
 </details>
 
 <details>
-    <summary>Page: Register</summary>
+    <summary>Page: <b>Register</b></summary>
     <img src="https://i.imgur.com/Elhqxqa.png"/>
 </details>
 
 <details>
-    <summary>Page: My account</summary>
+    <summary>Page: <b>My account</b></summary>
     <img src="https://i.imgur.com/dDxfCPn.png"/>
 </details>
 
 <details>
-    <summary>Page: AdminCP</summary>
+    <summary>Page: <b>AdminCP</b></summary>
     <img src="https://i.imgur.com/15o5Flv.png"/>
 </details>
 
 <details>
-    <summary>Dropdown: Your Account</summary>
+    <summary>Dropdown: <b>Your Account</b></summary>
     <img src="https://i.imgur.com/G43khM1.png"/>
 </details>
 
 <details>
-    <summary>Dropdown: Favorites</summary>
+    <summary>Dropdown: <b>Favorites</b></summary>
     <img src="https://i.imgur.com/gAqxgJ4.png"/>
 </details>
 
