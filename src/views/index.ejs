@@ -59,13 +59,13 @@
                         <%
                         if(user?.itemsInFavorites.length) {
                             user.itemsInFavorites.forEach((item) => {
-                                const _item = items.find(f => f._id == item);
-                                if(!_item) return;
+                                const result = items.find(f => f._id == item);
+                                if(!result) return;
                                 %>
-                                    <div class="item">
-                                        <a href="#"><img src="<%=_item.images[0]%>"/></a>
-                                        <span><%=_item.name%></span>
-                                    </div>
+                                <div class="item">
+                                    <a href="/product/view/<%=result._id%>"><img src="<%=result.images[0]%>"/></a>
+                                    <span><%=result.name%></span>
+                                </div>
                                 <%
                             });
                         } else {
@@ -74,8 +74,26 @@
                         %>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item cart">
                     <i class="fa-solid fa-cart-shopping"></i> Your cart <i class="fa-solid fa-caret-down"></i>
+                    <div class="drop-down">
+                        <%
+                        if(user?.itemsInCart.length) {
+                            user.itemsInCart.forEach((item) => {
+                                const result = items.find(f => f._id == item);
+                                if(!result) return;
+                                %>
+                                <div class="item">
+                                    <a href="/product/view/<%=result._id%>"><img src="<%=result.images[0]%>"/></a>
+                                    <span><%=result.name%></span>
+                                </div>
+                                <%
+                            });
+                        } else {
+                            %>No items<%
+                        }
+                        %>
+                    </div>
                 </div>
             </div>
         </header>
