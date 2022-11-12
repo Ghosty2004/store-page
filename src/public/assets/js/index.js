@@ -14,6 +14,7 @@ const Toast = Swal.mixin({
 // => Varibles declaration
 const categorySelect = document.querySelector(".category-select>select[name=\"category\"]");
 const searchBox = document.querySelector(".search-box>input[type=\"text\"]");
+const productViewAddReview = document.querySelector(".product-view-page>.about>.add-review");
 
 // => Backend calls
 const productToggleCart = (itemId, element = null) => {
@@ -55,6 +56,17 @@ const productToggleFavorite = (itemId, element = null) => {
         }).catch(console.error)
     }).catch(console.error);
 };
+
+const deleteReviewFromUserId = (itemId, userId) => {
+    fetch("/product/delete-review", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ itemId, userId })
+    }).then(() => window.location.reload()).catch(console.error);
+};
+
 const getValidItemCategories = () => new Promise(resolve => fetch("/admincp/fetch-categories").then(response => response.json().then(json => resolve(json)).catch(console.error)).catch(console.error));
 
 // => AdminCP functions
@@ -177,10 +189,10 @@ const showItemAdd_AdminCP = async (type, values = {}) => {
                 if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
                 fetch("/admincp/add-item", {
                     method: "PUT",
-                    body: JSON.stringify(values),
                     headers: {
                         "Content-Type": "application/json"
-                    }
+                    },
+                    body: JSON.stringify(values)
                 }).then(response => {
                     response.json().then(json => {
                         Toast.fire({
@@ -206,10 +218,10 @@ const showItemRemove_AdminCP = () => {
         if(!result.isConfirmed || result.isDismissed) return Swal.fire({ icon: "warning", title: "Canceled" })
         fetch("/admincp/remove-item", {
             method: "DELETE",
-            body: JSON.stringify({ itemId: result.value }),
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({ itemId: result.value })
         }).then(response => {
             response.json().then(json => {
                 Toast.fire({
@@ -229,16 +241,30 @@ const showItemEdit_AdminCP = () => {
 };
 
 // => Events listeners
-categorySelect.addEventListener("change", (event) => {
+categorySelect?.addEventListener("change", (event) => {
     const selected = [...event.target.options].find(f => f.selected);
     if(!selected) return;
     window.location.href = `/product/search?query=${encodeURIComponent(searchBox.value)}&category=${selected.value}`;
 });
 
-searchBox.addEventListener("keypress", (event) => {
+searchBox?.addEventListener("keypress", (event) => {
     if(event.key !== "Enter") return;
     event.preventDefault();
     const selected = [...categorySelect.options].find(f => f.selected);
     if(!selected) return;
     window.location.href = `/product/search?query=${encodeURIComponent(searchBox.value)}&category=${selected.value}`;
+});
+
+
+productViewAddReview?.addEventListener("mouseover", (event) => {
+    if(event.target.tagName !== "I") return;
+    const stars = [...productViewAddReview.querySelectorAll("i")];
+    const index = stars.indexOf(event.target);
+    const rating = productViewAddReview.querySelector("input[name=\"rating\"]");
+    if(!rating) return;
+    const foundStars = stars.filter(f => stars.indexOf(f) <= index);
+    const notFoundStars = stars.filter(f => stars.indexOf(f) > index);
+    foundStars.forEach(star => star.style.color = "yellow");
+    notFoundStars.forEach(star => star.style.color = "white");
+    rating.value = foundStars.length;
 });
