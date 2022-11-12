@@ -29,18 +29,43 @@
 </details>
 
 <details>
+    <summary>Page: <b>Search product</b></summary>
+    <img src="https://i.imgur.com/7NUB9Ll.png"/>
+</details>
+
+<details>
+    <summary>Page: <b>View product</b></summary>
+    <img src="https://i.imgur.com/UW8M4eG.png"/>
+</details>
+
+<details>
     <summary>Page: <b>AdminCP</b></summary>
     <img src="https://i.imgur.com/15o5Flv.png"/>
 </details>
 
 <details>
-    <summary>Dropdown: <b>Your Account</b></summary>
+    <summary>Dropdown: <b>My account</b></summary>
     <img src="https://i.imgur.com/G43khM1.png"/>
 </details>
 
 <details>
     <summary>Dropdown: <b>Favorites</b></summary>
     <img src="https://i.imgur.com/gAqxgJ4.png"/>
+</details>
+
+<details>
+    <summary>Dropdown: <b>Your cart</b></summary>
+    <img src="https://i.imgur.com/B23r7Bm.png"/>
+</details>
+
+<details>
+    <summary>Dropdown: <b>Choose search category</b></summary>
+    <img src="https://i.imgur.com/PnkM9Ao.png"/>
+</details>
+
+<details>
+    <summary>View-product: <b>reviews</b></summary>
+    <img src="https://i.imgur.com/M1KfRWp.png"/>
 </details>
 
 <h3>Special thanks to:</h3>
