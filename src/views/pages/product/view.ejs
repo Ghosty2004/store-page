@@ -19,6 +19,11 @@
                 } else {
                     %><button class="remove-from-cart" onclick="productToggleCart('<%=options.result._id%>')"><i class="fa-solid fa-xmark"></i> Remove from cart</button><%
                 }
+                if(!user.itemsInFavorites.includes(options.result._id)) {
+                    %><button class="add-to-favorite" onclick="productToggleFavorite('<%=options.result._id%>')"><i class="fa-solid fa-heart"></i> Add to favorite</button><%
+                } else {
+                    %><button class="remove-from-favorite" onclick="productToggleFavorite('<%=options.result._id%>')"><i class="fa-solid fa-heart-circle-xmark"></i> Remove from favorite</button><%
+                }
                 %>
             </div>
             <div class="orizontal-line"></div>
@@ -27,6 +32,27 @@
                 <div><%=options.result.description%></div>
             </div>
         </div>
+        <%
+        if(!options.result.reviews.some(s => s.userId.toString() == user._id)) {
+            %>
+            <div class="add-review">
+                <span>Add review</span>
+                <form action="/product/add-review/<%=options.result._id%>" method="POST">
+                    <div class="stars">
+                    <%
+                    for(let i = 1; i <= 5; i++) { 
+                        %><i class="fa-solid fa-star"></i><% 
+                    }
+                    %>
+                    </div>
+                    <textarea placeholder="Review message" name="text" required></textarea>
+                    <input type="hidden" name="rating" value="0"/>
+                    <input type="submit" value="Post"/>
+                </form>
+            </div>
+            <%
+        }
+        %>
     </div>
     <%
     if(options.result.reviews.length) {
@@ -34,7 +60,7 @@
         <div class="reviews">
             <span>Reviews</span>
             <%
-            options.result.reviews.forEach((review) => {
+            options.result.reviews.reverse().forEach((review) => {
                 %>
                 <div class="orizontal-line"></div>
                 <div class="review">
@@ -47,8 +73,17 @@
                     </div>
                     <div class="author-name"><i class="fa-solid fa-user"></i>: <%=review.userId%></div>
                     <div class="text"><i class="fa-regular fa-comment"></i>: <%=review.text%></div>
-                    <div class="date"><i class="fa-solid fa-calendar-days"></i>: <%=new Date(review.date * 1000).toLocaleDateString("ro-RO")%></div>
+                    <div class="date"><i class="fa-solid fa-calendar-days"></i>: <%=new Date(review.date).toLocaleDateString("ro-RO")%></div>
                 </div>
+                <%
+                if(review.userId.toString() == user._id || user.isAdmin) {
+                    %>
+                    <div class="manage">
+                        <div class="delete" onclick="deleteReviewFromUserId('<%=options.result._id%>', '<%=review.userId.toString()%>')"><i class="fa-solid fa-trash"></i> Delete</div>
+                    </div>
+                    <%
+                }
+                %>
                 <div class="orizontal-line"></div>
                 <%
             });
