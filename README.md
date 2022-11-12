@@ -4,6 +4,7 @@
 
 1. rename `config.default.json` from `/src` to `config.json`;
 2. change the `MONGODB_CONNECT_URI` value from `config.json`;
+3. when you register you need to change your `isAdmin` variabile to `true` from `users` collection to have full access on page `AdminCP`
 
 <h3>Spoiler:</h3>
 
