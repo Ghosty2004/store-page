@@ -39,6 +39,7 @@ header .search-box input {
     height: 1vw;
     padding: 0.5vw;
     font-size: 1vw;
+    margin: 0;
 }
 
 /* user options */
@@ -51,11 +52,13 @@ header .search-box input {
     margin: 0 1vw 0 1vw;
 }
 
-.user-options .item.favorites .item {
+.user-options .item.favorites .item,
+.user-options .item.cart .item {
     display: flex;
     align-items: center;
 }
-.user-options .item.favorites .item img {
+.user-options .item.favorites .item img,
+.user-options .item.cart .item img {
     width: 3vw;
 }
 
@@ -152,7 +155,7 @@ header .search-box input {
     background-repeat: no-repeat;
     border: solid 0.15vw rgb(255, 255, 255);
     border-radius: 1vw;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .product-search-page .item img {
@@ -201,11 +204,12 @@ header .search-box input {
 .product-view-page>.about {
     display: flex;
 }
+.product-view-page>.about>div {
+    margin-bottom: 2vw;
+    padding: 2vw;
+}
 .product-view-page>.about>.images>img {
     width: 25vw;
-}
-.product-view-page>.about>.info {
-    margin-left: 3vw;
 }
 .product-view-page>.about>.info>.price {
     font-size: 1vw;
@@ -219,11 +223,15 @@ header .search-box input {
     margin-top: 1vw;
 }
 .product-view-page>.about>.info>.actions>.add-to-cart,
-.product-view-page>.about>.info>.actions>.remove-from-cart {
+.product-view-page>.about>.info>.actions>.remove-from-cart, 
+.product-view-page>.about>.info>.actions>.add-to-favorite, 
+.product-view-page>.about>.info>.actions>.remove-from-favorite {
+    display: block;
     border-radius: 1vw;
     padding: 0.5vw;
     font-size: 1vw;
     cursor: pointer;
+    width: 15vw;
 }
 .product-view-page>.about>.info>.actions>.add-to-cart {
     background-color: rgb(255, 221, 0);
@@ -233,12 +241,28 @@ header .search-box input {
     background-color: rgb(248, 95, 95);
     color: white;
 }
+.product-view-page>.about>.info>.actions>.add-to-favorite {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+.product-view-page>.about>.info>.actions>.remove-from-favorite {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
 .product-view-page>.about>.info>.description {
     margin-top: 1vw;
     font-size: 1vw;
 }
 .product-view-page>.about>.info>.description>span {
     font-size: 1.5vw;
+}
+.product-view-page>.about>.add-review>span {
+    font-size: 1.5vw;
+}
+.product-view-page>.about>.add-review>form>textarea
+.product-view-page>.about>.add-review>form>input {
+    margin-top: 1vw;
+    display: block;
 }
 .product-view-page>.reviews {
     display: block;
@@ -248,6 +272,15 @@ header .search-box input {
 }
 .product-view-page>.reviews>.review {
     margin-top: 0.5vw;
+}
+.product-view-page>.reviews>.manage {
+    position: absolute;
+    right: 3vw;
+    margin-top: -4.5vw;
+}
+.product-view-page>.reviews>.manage .delete:hover {
+    color: rgb(253, 92, 92);
+    cursor: pointer;
 }
 
 /* AdminCP page */
@@ -305,7 +338,7 @@ table td {
     padding: 0.5vw;
 }
 
-input, select {
+input, select, textarea {
     background-color: black;
     color: white;
     padding: 0.2vw;
@@ -313,6 +346,13 @@ input, select {
     font-size: 0.8vw;
     border: 0.15vw solid #ccc;
     outline: none;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    display: block;
+}
+
+input[type="submit"] {
+    cursor: pointer;
 }
 
 footer {
