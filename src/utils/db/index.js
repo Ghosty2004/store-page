@@ -3,4 +3,8 @@ import config from "../../config.json" assert { type: "json" }; // experimental 
 
 export const con = createConnection(config.MONGODB_CONNECT_URI);
 
-con.on("connect", () => console.log("MongoDB: Successfully connected"));
+con.on("connected", () => console.log("MongoDB: Successfully connected"));
+con.on("error", () => {
+    console.log("MongoDB: Connection error");
+    process.exit();
+});
